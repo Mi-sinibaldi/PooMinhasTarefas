@@ -1,11 +1,13 @@
 package com.example.roommy.ui;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.roommy.R;
 
@@ -14,6 +16,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private Animation transTop;
     private ImageView imageViewSplash;
+    private TextView textViewNomeSplash;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class SplashActivity extends AppCompatActivity {
         });
         thread.start();
 
+        setFonts();
+
 //        //implementa a splashscreen
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
@@ -49,9 +55,11 @@ public class SplashActivity extends AppCompatActivity {
 
     public void transicionar() {
         imageViewSplash = findViewById(R.id.imageViewSplash);
+        textViewNomeSplash = findViewById(R.id.textViewNomeSplash);
         transTop = AnimationUtils.loadAnimation(this, R.anim.splash_transition_top);
 
         imageViewSplash.setAnimation(transTop);
+        textViewNomeSplash.setAnimation(transTop);
 
     }
 
@@ -59,5 +67,11 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void setFonts() {
+        Typeface negrito = Typeface.createFromAsset(getAssets(),
+                "BwModelica-BoldCondensed.ttf");
+        textViewNomeSplash.setTypeface(negrito);
     }
 }
