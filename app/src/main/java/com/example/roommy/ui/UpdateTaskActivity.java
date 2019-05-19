@@ -105,7 +105,7 @@ public class UpdateTaskActivity extends AppCompatActivity {
                 builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        finish();
                     }
                 });
 
@@ -201,6 +201,7 @@ public class UpdateTaskActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Excluido com sucesso", Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(new Intent(UpdateTaskActivity.this, MainActivity.class));
+
             }
         }
 

@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.roommy.Domain.Task;
 import com.example.roommy.R;
+import com.example.roommy.ui.AddTaskActivity;
 import com.example.roommy.ui.UpdateTaskActivity;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         holder.textViewDesc.setText(t.getDesc());
         holder.textViewFinishBy.setText(t.getFinishBy());
 
-        if (t.isFinished()){
+        if (t.isFinished()) {
             holder.textViewStatus.setText("Finalizado");
             holder.textViewStatus.setBackgroundColor(ContextCompat.getColor(c, R.color.colorVerde));
 
@@ -71,6 +73,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             textViewTask = itemView.findViewById(R.id.textViewTask);
             textViewDesc = itemView.findViewById(R.id.textViewDesc);
             textViewFinishBy = itemView.findViewById(R.id.textViewFinishBy);
+
             setFonts();
 
             itemView.setOnClickListener(this);
@@ -82,7 +85,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         @Override
         public void onClick(View view) {
             Task task = taskList.get(getAdapterPosition());
-
+            //intent de atualizar tarefa
             Intent intent = new Intent(c, UpdateTaskActivity.class);
             intent.putExtra("task", task);
 

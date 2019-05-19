@@ -29,14 +29,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tarefa"
-            android:inputType="text" />
+            android:inputType="text|textCapSentences" />
 
         <EditText
             android:id="@+id/editTextDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/descri_o"
-            android:inputType="text" />
+            android:inputType="text|textCapSentences" />
 
         <ImageButton
             android:id="@+id/imageButtonCalendar"
