@@ -1,6 +1,7 @@
 package com.example.roommy.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -26,14 +29,15 @@ public class UpdateTaskActivity extends AppCompatActivity {
 
     private EditText editTextTask, editTextDesc;
     private CheckBox checkBoxFinished;
-    private TextView textViewTarefa, textViewFinish;
-    private Button button_update, button_delete;
+    private TextView textViewTarefa, textViewFinish, textViewCheck;
+    private Button button_update, button_delete, buttonChosserYes, buttonChosserNo, buttonConfirmCheck;
     private int day;
     private int month;
     private int year;
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
     private ImageButton imageButtonCalendar;
+    private Dialog dialog;
 
 
     @Override
@@ -41,7 +45,23 @@ public class UpdateTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_task);
 
+        editTextTask = findViewById(R.id.editTextTask);
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
 
+        checkBoxFinished = findViewById(R.id.checkBoxFinished);
+        textViewTarefa = findViewById(R.id.textViewTarefa);
+
+        button_update = findViewById(R.id.button_update);
+        button_delete = findViewById(R.id.button_delete);
+
+        buttonChosserYes = findViewById(R.id.button_dialog_chooser_yes);
+        buttonChosserNo = findViewById(R.id.buttton_dialog_chooser_no);
+
+
+        setFonts();
+
+        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
         imageButtonCalendar.setOnClickListener(v -> {
             calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
@@ -62,9 +82,6 @@ public class UpdateTaskActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
-        loadUi();
-        setFonts();
-
 
         final Task task = (Task) getIntent().getSerializableExtra("task");
 
@@ -74,8 +91,8 @@ public class UpdateTaskActivity extends AppCompatActivity {
         findViewById(R.id.button_update).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Finalizado com sucesso", Toast.LENGTH_LONG).show();
-                updateTask(task);
+                showDialogConfirmFinalizado();
+
             }
         });
 
@@ -83,27 +100,13 @@ public class UpdateTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //AlertDialog para o botão excluir tarefa
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateTaskActivity.this);
-                builder.setTitle("Tem certeza que deseja excluir?");
-                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteTask(task);
-                    }
-                });
-                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
+                showDialogChooser();
 
-                AlertDialog ad = builder.create();
-                ad.show();
             }
+
         });
     }
+
 
     //carrega tarefas
     private void loadTask(Task task) {
@@ -163,7 +166,6 @@ public class UpdateTaskActivity extends AppCompatActivity {
             // Método que envia os produtos encontrados para a main thread.
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Toast.makeText(getApplicationContext(), "Atualizado com sucesso", Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(new Intent(UpdateTaskActivity.this, MainActivity.class));
             }
@@ -226,18 +228,44 @@ public class UpdateTaskActivity extends AppCompatActivity {
         return result;
     }
 
-    private void loadUi(){
-        editTextTask = findViewById(R.id.editTextTask);
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
+    public void showDialogChooser() {
+        dialog = new Dialog(this, R.style.CustomAlertDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_chooser);
+        dialog.setCancelable(false);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.show();
 
-        checkBoxFinished = findViewById(R.id.checkBoxFinished);
-        textViewTarefa = findViewById(R.id.textViewTarefa);
+        buttonChosserYes = dialog.findViewById(R.id.button_dialog_chooser_yes);
+        buttonChosserNo = dialog.findViewById(R.id.buttton_dialog_chooser_no);
 
-        button_update = findViewById(R.id.button_update);
-        button_delete = findViewById(R.id.button_delete);
-        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
-
+        buttonChosserYes.setOnClickListener(v -> {
+            final Task task = (Task) getIntent().getSerializableExtra("task");
+            deleteTask(task);
+            Intent intent = new Intent(UpdateTaskActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+        buttonChosserNo.setOnClickListener(v -> dialog.dismiss());
     }
 
+    public void showDialogConfirmFinalizado() {
+        dialog = new Dialog(this, R.style.CustomAlertDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_check);
+        TextView textView = dialog.findViewById(R.id.textViewCheck);
+
+        textView.setText("Terefa atualizada com sucesso!");
+        dialog.setCancelable(false);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.show();
+
+        buttonConfirmCheck = dialog.findViewById(R.id.button_dialog_ckeck);
+        buttonConfirmCheck.setOnClickListener(v -> {
+            final Task task = (Task) getIntent().getSerializableExtra("task");
+            updateTask(task);
+            dialog.dismiss();
+        });
+    }
 }

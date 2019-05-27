@@ -27,7 +27,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private EditText editTextTask, editTextDesc;
     private TextView textViewAdicionarTarefa, textViewFinish;
-    private Button button_save;
+    private Button button_save, buttonConfirmCheck;
     private int day;
     private int month;
     private int year;
@@ -41,8 +41,17 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
+        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
+
+
+        button_save = findViewById(R.id.button_save);
+        editTextTask = findViewById(R.id.editTextTask);
+
+        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
         imageButtonCalendar.setOnClickListener(v -> {
-            calendar = Calendar.getInstance();
+            calendar = Calendar.getInstance();// pega o dia e a hora de hoje
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -60,7 +69,6 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         setFonts();
-        loadUi();
 
         findViewById(R.id.button_save).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,15 +129,35 @@ public class AddTaskActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                finish();
+                showDialogConfirmSave();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                //Toast.makeText(getApplicationContext(), "Salvo com sucesso!", Toast.LENGTH_LONG).show();
+                finish();
 
             }
         }
-
         SaveTask st = new SaveTask();
         st.execute();
+
+    }
+
+    public void showDialogConfirmSave() {
+        dialog = new Dialog(this, R.style.CustomAlertDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_check);
+        TextView textView = dialog.findViewById(R.id.textViewCheck);
+
+        textView.setText("Tarefa salva com sucesso!");
+        dialog.setCancelable(false);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.show();
+
+        buttonConfirmCheck = dialog.findViewById(R.id.button_dialog_ckeck);
+        buttonConfirmCheck.setOnClickListener(v -> {
+            final Task task = (Task) getIntent().getSerializableExtra("task");
+            //saveTask();
+            dialog.dismiss();
+        });
     }
 
     private void setFonts() {
@@ -156,16 +184,5 @@ public class AddTaskActivity extends AppCompatActivity {
         }
         return result;
     }
-
-    private void loadUi(){
-        editTextTask = findViewById(R.id.editTextTask);
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
-        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
-        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
-
-        button_save = findViewById(R.id.button_save);
-    }
-
 
 }
