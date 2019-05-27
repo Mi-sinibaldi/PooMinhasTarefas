@@ -1,6 +1,7 @@
 package com.example.roommy.ui;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,19 +34,12 @@ public class AddTaskActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Calendar calendar;
     private ImageButton imageButtonCalendar;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
-        editTextTask = findViewById(R.id.editTextTask);
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
-        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
-        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
-
-        button_save = findViewById(R.id.button_save);
 
         imageButtonCalendar.setOnClickListener(v -> {
             calendar = Calendar.getInstance();
@@ -64,6 +60,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         setFonts();
+        loadUi();
 
         findViewById(R.id.button_save).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +123,8 @@ public class AddTaskActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 finish();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                Toast.makeText(getApplicationContext(), "Salvo com sucesso!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Salvo com sucesso!", Toast.LENGTH_LONG).show();
+
             }
         }
 
@@ -157,6 +155,16 @@ public class AddTaskActivity extends AppCompatActivity {
             result = "" + data;
         }
         return result;
+    }
+
+    private void loadUi(){
+        editTextTask = findViewById(R.id.editTextTask);
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
+        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
+        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
+
+        button_save = findViewById(R.id.button_save);
     }
 
 

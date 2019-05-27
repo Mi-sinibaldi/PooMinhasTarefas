@@ -11,4 +11,8 @@
     <string name="atualizar">Atualizar</string>
     <string name="deletar">Deletar</string>
     <string name="finalizado">Finalizado</string>
+    <string name="ok">Ok</string>
+    <string name="sim">Sim</string>
+    <string name="n_o">Não</string>
+    <string name="tem_certeza_que_deseja_excluir">Tem certeza que deseja excluir?</string>
 </resources>

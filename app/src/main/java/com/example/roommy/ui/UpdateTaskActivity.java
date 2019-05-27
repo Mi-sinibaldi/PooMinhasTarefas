@@ -42,17 +42,6 @@ public class UpdateTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_task);
 
 
-        editTextTask = findViewById(R.id.editTextTask);
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
-
-        checkBoxFinished = findViewById(R.id.checkBoxFinished);
-        textViewTarefa = findViewById(R.id.textViewTarefa);
-
-        button_update = findViewById(R.id.button_update);
-        button_delete = findViewById(R.id.button_delete);
-        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
-
         imageButtonCalendar.setOnClickListener(v -> {
             calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
@@ -73,6 +62,7 @@ public class UpdateTaskActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        loadUi();
         setFonts();
 
 
@@ -234,6 +224,20 @@ public class UpdateTaskActivity extends AppCompatActivity {
             result = "" + data;
         }
         return result;
+    }
+
+    private void loadUi(){
+        editTextTask = findViewById(R.id.editTextTask);
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
+
+        checkBoxFinished = findViewById(R.id.checkBoxFinished);
+        textViewTarefa = findViewById(R.id.textViewTarefa);
+
+        button_update = findViewById(R.id.button_update);
+        button_delete = findViewById(R.id.button_delete);
+        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
+
     }
 
 }
