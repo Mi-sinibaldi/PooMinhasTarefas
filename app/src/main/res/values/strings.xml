@@ -15,4 +15,5 @@
     <string name="sim">Sim</string>
     <string name="n_o">Não</string>
     <string name="tem_certeza_que_deseja_excluir">Tem certeza que deseja excluir?</string>
+    <string name="tem_certeza_que_n_deseja_excluir">Tem certeza que deseja excluir?</string>
 </resources>

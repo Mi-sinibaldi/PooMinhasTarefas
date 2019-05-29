@@ -14,7 +14,7 @@
         android:layout_marginRight="57dp"
         android:layout_marginBottom="104dp"
         android:gravity="center"
-        android:text="Tem certeza que \n deseja excluir?"
+        android:text="@string/tem_certeza_que_n_deseja_excluir"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

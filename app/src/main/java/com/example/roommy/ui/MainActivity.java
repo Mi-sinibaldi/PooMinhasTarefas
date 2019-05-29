@@ -1,6 +1,7 @@
 package com.example.roommy.ui;
 
 import android.app.Dialog;
+import android.arch.persistence.room.TypeConverter;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import com.example.roommy.R;
 import com.example.roommy.infra.DatabaseClient;
 import com.example.roommy.ui.adapter.TasksAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -33,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView_arlet;
     private TextView viewFinish;
     private Calendar calendar;
-    private int day;
-    private int month;
-    private int year;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,21 +110,5 @@ public class MainActivity extends AppCompatActivity {
         gt.execute();
     }
 
-    private void today() {
-        Calendar rightNow = Calendar.getInstance();
 
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
-    }
-
-//    private void showDialogExpired() {
-//        calendar finish;
-//        if (viewFinish > today()) {
-//
-//        }
 }
-
-
-
