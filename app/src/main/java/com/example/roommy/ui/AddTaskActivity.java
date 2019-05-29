@@ -41,15 +41,8 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
-        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
+        loadUI();
 
-
-        button_save = findViewById(R.id.button_save);
-        editTextTask = findViewById(R.id.editTextTask);
-
-        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
         imageButtonCalendar.setOnClickListener(v -> {
             calendar = Calendar.getInstance();// pega o dia e a hora de hoje
             year = calendar.get(Calendar.YEAR);
@@ -130,9 +123,6 @@ public class AddTaskActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 showDialogConfirmSave();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-
             }
         }
         SaveTask st = new SaveTask();
@@ -155,8 +145,10 @@ public class AddTaskActivity extends AppCompatActivity {
         buttonConfirmCheck = dialog.findViewById(R.id.button_dialog_ckeck);
         buttonConfirmCheck.setOnClickListener(v -> {
             final Task task = (Task) getIntent().getSerializableExtra("task");
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             //saveTask();
-            dialog.dismiss();
+            finish();
+            //dialog.dismiss();
         });
     }
 
@@ -173,6 +165,18 @@ public class AddTaskActivity extends AppCompatActivity {
         button_save.setTypeface(negrito);
 
 
+    }
+
+    private void loadUI(){
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
+        textViewAdicionarTarefa = findViewById(R.id.textViewAdicionarTarefa);
+
+
+        button_save = findViewById(R.id.button_save);
+        editTextTask = findViewById(R.id.editTextTask);
+
+        imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
     }
 
     private String formatViewDate(int data) {

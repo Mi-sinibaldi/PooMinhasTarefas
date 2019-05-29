@@ -2,13 +2,11 @@ package com.example.roommy.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,9 +17,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.roommy.infra.DatabaseClient;
 import com.example.roommy.Domain.Task;
 import com.example.roommy.R;
+import com.example.roommy.infra.DatabaseClient;
 
 import java.util.Calendar;
 
@@ -45,20 +43,7 @@ public class UpdateTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_task);
 
-        editTextTask = findViewById(R.id.editTextTask);
-        editTextDesc = findViewById(R.id.editTextDesc);
-        textViewFinish = findViewById(R.id.textViewFinish);
-
-        checkBoxFinished = findViewById(R.id.checkBoxFinished);
-        textViewTarefa = findViewById(R.id.textViewTarefa);
-
-        button_update = findViewById(R.id.button_update);
-        button_delete = findViewById(R.id.button_delete);
-
-        buttonChosserYes = findViewById(R.id.button_dialog_chooser_yes);
-        buttonChosserNo = findViewById(R.id.buttton_dialog_chooser_no);
-
-
+        loadUi();
         setFonts();
 
         imageButtonCalendar = findViewById(R.id.imageButtonCalendar);
@@ -267,5 +252,20 @@ public class UpdateTaskActivity extends AppCompatActivity {
             updateTask(task);
             dialog.dismiss();
         });
+    }
+
+    private void loadUi() {
+        editTextTask = findViewById(R.id.editTextTask);
+        editTextDesc = findViewById(R.id.editTextDesc);
+        textViewFinish = findViewById(R.id.textViewFinish);
+
+        checkBoxFinished = findViewById(R.id.checkBoxFinished);
+        textViewTarefa = findViewById(R.id.textViewTarefa);
+
+        button_update = findViewById(R.id.button_update);
+        button_delete = findViewById(R.id.button_delete);
+
+        buttonChosserYes = findViewById(R.id.button_dialog_chooser_yes);
+        buttonChosserNo = findViewById(R.id.buttton_dialog_chooser_no);
     }
 }
