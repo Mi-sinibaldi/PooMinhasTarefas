@@ -53,27 +53,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //animação que o Gerson me ensinou :)
-        //animação não realiza nenhuma ação - codigo para consulta posterior
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
-                        ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
-                Toast.makeText(MainActivity.this, "Moveu!", Toast.LENGTH_LONG).show();
-                return false;
-            }
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                Toast.makeText(MainActivity.this, "Foi!", Toast.LENGTH_LONG).show();
-            }
-        }).attachToRecyclerView(recyclerView);
-
-        getTasks();
-
-    }
+ }
 
     private void loadUi() {
 
@@ -110,6 +91,32 @@ public class MainActivity extends AppCompatActivity {
         GetTasks gt = new GetTasks();
         gt.execute();
     }
+
+
+    //animação que o Gerson me ensinou :)
+    //animação não realiza nenhuma ação - codigo para consulta posterior
+    private void Swipe(){
+
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
+//                        ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+//                Toast.makeText(MainActivity.this, "Moveu!", Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+//                Toast.makeText(MainActivity.this, "Foi!", Toast.LENGTH_LONG).show();
+//            }
+//        }).attachToRecyclerView(recyclerView);
+//
+//        getTasks();
+//
+    }
+
 
 
 }
