@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //animação que o Gerson me ensinou :)
+        //animação não realiza nenhuma ação - codigo para consulta posterior
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
                         ItemTouchHelper.UP | ItemTouchHelper.DOWN,
